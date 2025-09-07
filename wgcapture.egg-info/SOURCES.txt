@@ -1,0 +1,14 @@
+LICENSE
+MANIFEST.in
+README.md
+pyproject.toml
+setup.cfg
+wgcapture/__init__.py
+wgcapture/__main__.py
+wgcapture/core.py
+wgcapture.egg-info/PKG-INFO
+wgcapture.egg-info/SOURCES.txt
+wgcapture.egg-info/dependency_links.txt
+wgcapture.egg-info/requires.txt
+wgcapture.egg-info/top_level.txt
+wgcapture/dlls/wgc_core.dll

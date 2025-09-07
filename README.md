@@ -2,9 +2,13 @@
 
 > Consistent, window-based screen captures on Windows using WinRT + Windows Graphics Capture (WGC).
 
-A small library that makes it easy to capture screenshots of *Windows (application windows)* rather than whole monitors. This helps produce consistent, high-fidelity captures across multiple displays, scaling/DPI settings, and systems where monitor-based grabs are unreliable.
+A small library that makes it easy to capture screenshots of *Windows (application windows)* rather than whole monitors. In particular this helps produce consistent captures across multiple displays, scaling/DPI settings, and systems where monitor-based grabs are unreliable. This also works in borderless and full screen modes.
 
 > **Note:** This package targets **Microsoft Windows** and uses Windows-specific APIs (WinRT + Windows Graphics Capture). It will not work on macOS or Linux.
+  **Note** You can view the project files related to the DLL on the github repo
+    ```
+    https://github.com/spartan3661/WGCapture
+    ```
 
 ---
 

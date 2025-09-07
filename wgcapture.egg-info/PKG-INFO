@@ -13,3 +13,5 @@ Requires-Dist: numpy
 Requires-Dist: Pillow
 Requires-Dist: pygetwindow
 Dynamic: license-file
+
+Capture window specific screenshot using Windows Graphics Capture

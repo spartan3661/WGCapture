@@ -1,0 +1,1 @@
+Capture window specific screenshot using Windows Graphics Capture

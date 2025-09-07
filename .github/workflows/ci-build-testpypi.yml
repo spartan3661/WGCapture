@@ -1,0 +1,53 @@
+name: Build & Upload to TestPyPI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.11
+
+      - name: Install build deps
+        run: python -m pip install --upgrade pip build twine
+
+      - name: Build distributions
+        run: python -m build
+
+      - name: Create SHA256SUMS
+        working-directory: dist
+        run: |
+          sha256sum * > SHA256SUMS
+          ls -l
+
+      - name: Import GPG key
+        env:
+          GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
+          GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
+        run: |
+          echo "$GPG_PRIVATE_KEY" > private.key
+          gpg --batch --import private.key
+          # sign the checksum file
+          gpg --batch --yes --pinentry-mode loopback --passphrase "$GPG_PASSPHRASE" \
+              --armor --detach-sign dist/SHA256SUMS
+
+      - name: Upload to TestPyPI
+        env:
+          TWINE_USERNAME: "__token__"
+          TWINE_PASSWORD: ${{ secrets.TEST_PYPI_TOKEN }}
+        run: python -m twine upload --repository testpypi dist/*
+
+      - name: Upload dist to GitHub artifacts (optional)
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist/*
